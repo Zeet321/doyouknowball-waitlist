@@ -398,7 +398,7 @@
                 
                 try {
                     const { data, error } = await client
-                        .from('Waitlist')
+                        .from('waitlist')
                         .insert([
                             { name: name, email: email }
                         ]);
