@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do You Know Ball? - Join the Waitlist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --court-orange: #FF6B35;
+            --deep-navy: #0A1128;
+            --electric-green: #00FF88;
+            --warm-white: #FFF8F0;
+            --shadow-purple: #6B2D5C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: var(--deep-navy);
+            color: var(--warm-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, var(--electric-green) 35px, var(--electric-green) 36px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, var(--court-orange) 35px, var(--court-orange) 36px);
+            animation: slidePattern 20s linear infinite;
+        }
+        
+        @keyframes slidePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            max-width: 900px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-mark {
+            display: inline-block;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            letter-spacing: -0.03em;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            color: var(--electric-green);
+            animation: slideIn 0.8s ease-out 0.2s backwards;
+        }
+        
+        h1 sup {
+            font-size: 0.3em;
+            margin-left: 0.1em;
+            vertical-align: super;
+            position: relative;
+            top: -0.5em;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: var(--electric-green);
+            margin-bottom: 1rem;
+            animation: slideIn 0.8s ease-out 0.3s backwards;
+        }
+        
+        .description {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--warm-white);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideIn 0.8s ease-out 0.4s backwards;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            animation: slideIn 0.8s ease-out 0.5s backwards;
+        }
+        
+        .feature {
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid var(--court-orange);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 53, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--electric-green);
+        }
+        
+        .feature-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Waitlist Form */
+        .waitlist-section {
+            background: linear-gradient(135deg, rgba(107, 45, 92, 0.3), rgba(255, 107, 53, 0.2));
+            border: 3px solid var(--court-orange);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.8s ease-out 0.6s backwards;
+        }
+        
+        .waitlist-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .waitlist-subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--electric-green);
+        }
+        
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            font-family: 'Archivo', sans-serif;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--electric-green);
+            border-radius: 8px;
+            color: var(--warm-white);
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--court-orange);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+        
+        input::placeholder {
+            color: rgba(255, 248, 240, 0.5);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: linear-gradient(135deg, var(--court-orange), var(--electric-green));
+            color: var(--deep-navy);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 255, 136, 0.2);
+            border: 2px solid var(--electric-green);
+            border-radius: 12px;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .waitlist-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <div class="container">
+        <div class="hero">
+            <h1>Do You Know Ball?<sup>™</sup></h1>
+            <p class="tagline">Expose the frauds. Survive the gauntlet.</p>
+        </div>
+        
+        <div class="waitlist-section">
+            <h2 class="waitlist-title">Join the Waitlist</h2>
+            <p class="waitlist-subtitle">Get early access + more by signing up now!</p>
+            
+            <form id="waitlistForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <span>Secure Your Spot</span>
+                </button>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">🎉</div>
+                <h3>You're On The List!</h3>
+                <p>We'll hit you up when it's game time. Get ready to prove you know ball.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 Do You Know Ball? All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase
+        (function() {
+            const supabaseUrl = 'https://pmrwmpztityhlzouhtnv.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtcndtcHp0aXR5aGx6b3VodG52Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNjk1MzUsImV4cCI6MjA4NTc0NTUzNX0.4ieXmYbBMpM9C2Sfw7Nc6aFB1MeaqB3taHZxxbufP6A';
+            const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+            
+            document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                
+                try {
+                    const { data, error } = await client
+                        .from('waitlist')
+                        .insert([
+                            { name: name, email: email }
+                        ]);
+                    
+                    if (error) {
+                        console.error('Supabase Error:', error);
+                        alert('Oops! Something went wrong. Please try again.');
+                    } else {
+                        // Show success message
+                        document.getElementById('waitlistForm').style.display = 'none';
+                        document.getElementById('successMessage').classList.add('show');
+                    }
+                    
+                } catch (error) {
+                    console.error('Submission Error:', error);
+                    alert('Oops! Something went wrong. Please try again.');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
