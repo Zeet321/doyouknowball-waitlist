@@ -80,6 +80,18 @@
             }
         }
         
+        .logo-mark {
+            display: inline-block;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
         h1 {
             font-family: 'Anton', sans-serif;
             font-size: clamp(3rem, 10vw, 7rem);
@@ -116,6 +128,58 @@
             color: var(--electric-green);
             margin-bottom: 1rem;
             animation: slideIn 0.8s ease-out 0.3s backwards;
+        }
+        
+        .description {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: var(--warm-white);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideIn 0.8s ease-out 0.4s backwards;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            animation: slideIn 0.8s ease-out 0.5s backwards;
+        }
+        
+        .feature {
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid var(--court-orange);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 107, 53, 0.2);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--electric-green);
+        }
+        
+        .feature-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
         
         /* Waitlist Form */
@@ -177,6 +241,10 @@
             box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
         
+        input::placeholder {
+            color: rgba(255, 248, 240, 0.5);
+        }
+        
         .submit-btn {
             width: 100%;
             padding: 1.2rem;
@@ -200,6 +268,34 @@
             box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
         }
         
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Success Message */
         .success-message {
             display: none;
             text-align: center;
@@ -220,11 +316,28 @@
             to { opacity: 1; }
         }
         
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
         footer {
             margin-top: 4rem;
             text-align: center;
             opacity: 0.6;
             font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .waitlist-section {
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
@@ -241,9 +354,7 @@
             <h2 class="waitlist-title">Join the Waitlist</h2>
             <p class="waitlist-subtitle">Get early access + more by signing up now!</p>
             
-            <form id="waitlistForm" name="waitlist" method="POST" data-netlify="true">
-                <input type="hidden" name="form-name" value="waitlist" />
-                
+            <form id="waitlistForm">
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Your name" required>
@@ -260,7 +371,7 @@
             </form>
             
             <div class="success-message" id="successMessage">
-                <div style="font-size: 3rem; margin-bottom: 1rem;">🎉</div>
+                <div class="success-icon">🎉</div>
                 <h3>You're On The List!</h3>
                 <p>We'll hit you up when it's game time. Get ready to prove you know ball.</p>
             </div>
@@ -271,24 +382,42 @@
         </footer>
     </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Initialize Supabase
+        (function() {
+            const supabaseUrl = 'https://pmrwmpztityhlzouhtnv.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtcndtcHp0aXR5aGx6b3VodG52Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNjk1MzUsImV4cCI6MjA4NTc0NTUzNX0.4ieXmYbBMpM9C2Sfw7Nc6aFB1MeaqB3taHZxxbufP6A';
+            const client = window.supabase.createClient(supabaseUrl, supabaseKey);
             
-            const myForm = e.target;
-            const formData = new FormData(myForm);
-            
-            fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString(),
-            })
-            .then(() => {
-                document.getElementById('waitlistForm').style.display = 'none';
-                document.getElementById('successMessage').classList.add('show');
-            })
-            .catch((error) => alert(error));
-        });
+            document.getElementById('waitlistForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                
+                try {
+                    const { data, error } = await client
+                        .from('waitlist')
+                        .insert([
+                            { name: name, email: email }
+                        ]);
+                    
+                    if (error) {
+                        console.error('Supabase Error:', error);
+                        alert('Oops! Something went wrong. Please try again.');
+                    } else {
+                        // Show success message
+                        document.getElementById('waitlistForm').style.display = 'none';
+                        document.getElementById('successMessage').classList.add('show');
+                    }
+                    
+                } catch (error) {
+                    console.error('Submission Error:', error);
+                    alert('Oops! Something went wrong. Please try again.');
+                }
+            });
+        })();
     </script>
 </body>
 </html>
